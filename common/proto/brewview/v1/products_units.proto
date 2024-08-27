@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package brewview.v1;
+
+import "brewview/v1/client.proto";
+import "buf/validate/validate.proto";
+
+message Unit {
+  int32 unit_id = 1;
+  string unit_name = 2;
+  string created_at = 5;
+  string deleted_at = 6;
+}
+
+message UnitRow {
+  int32 unit_id = 1;
+  string unit_name = 2;
+  float ratio = 3;
+}
+
+message UnitsListRequest {}
+message UnitsListRow {
+  int32 unit_id = 1;
+  string unit_name = 2;
+  int32 children_count = 3;
+  int32 parent_count = 4;
+  string created_at = 5;
+  string deleted_at = 6;
+}
+message UnitsListResponse {
+  ListDataOptions options = 1;
+  repeated UnitsListRow records = 2;
+  repeated UnitsListRow deleted_records = 3;
+}
+message UnitDeleteRestoreRequest {
+  repeated int32 unit_ids = 1;
+}
+message UnitDeleteRestoreResponse {}
+
+message SubUnitCreateRow {
+  int32 unit_id = 1 [(buf.validate.field).int32.gt = 0];
+  float ratio = 3 [(buf.validate.field).float.gt = 0];
+}
+message UnitCreateRequest {
+  string unit_name = 1 [
+    (buf.validate.field).string.min_len = 1,
+    (buf.validate.field).string.max_len = 200
+  ];
+  repeated SubUnitCreateRow child_units = 2;
+  repeated SubUnitCreateRow parent_units = 3;
+}
+message UnitCreateResponse {
+  repeated UnitsListRow records = 2;
+  repeated UnitsListRow deleted_records = 3;
+}
+
+message UnitFindForUpdateRequest {
+  int32 unit_id = 1;
+}
+
+message UnitUpdateRequest {
+  int32 unit_id = 1 [(buf.validate.field).int32.gt = 0];
+  string unit_name = 2 [
+    (buf.validate.field).string.min_len = 1,
+    (buf.validate.field).string.max_len = 200
+  ];
+  repeated SubUnitCreateRow child_units = 3;
+  repeated SubUnitCreateRow parent_units = 4;
+}
+message UnitUpdateResponse {
+  repeated UnitsListRow records = 2;
+  repeated UnitsListRow deleted_records = 3;
+}
+
+message UnitsInputListRequest {}
+message UnitsInputListResponse {
+  repeated SelectInputOption options = 1;
+}

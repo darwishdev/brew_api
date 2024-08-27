@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package brewview.v1;
+
+import "brewview/v1/client.proto";
+import "buf/validate/validate.proto";
+
+message Country {
+  int32 country_id = 1;
+  string country_name = 2;
+  int32 country_code = 3;
+  string created_at = 4;
+  string deleted_at = 5;
+}
+
+message CountriesListRequest {}
+message CountriesListRow {
+  int32 country_id = 1;
+  string country_name = 2;
+  int32 country_code = 3;
+  string created_at = 4;
+  string deleted_at = 6;
+}
+message CountriesListResponse {
+  ListDataOptions options = 1;
+  repeated CountriesListRow records = 2;
+  repeated CountriesListRow deleted_records = 3;
+}
+message CountryDeleteRestoreRequest {
+  repeated int32 country_ids = 1;
+}
+message CountryDeleteRestoreResponse {}
+
+message CountryCreateRequest {
+  // string country_name = 1 [(buf.validate.field).cel = {
+  //   message: "country_name_min_2_max_200",
+  //   expression: "uint(this.size()) > 2 && uint(this.size()) < 200"
+  // }];
+  repeated int32 country_codes = 1;
+}
+message CountryCreateResponse {
+  Country country = 1;
+}
+
+message CountryFindForUpdateRequest {
+  int32 country_id = 1;
+}
+
+message CountriesInputListRequest {}
+message CountriesInputListResponse {
+  repeated SelectInputOption options = 1;
+}
+
+message IsoCountriesInputListRequest {}
+message IsoCountriesInputListResponse {
+  repeated SelectInputOption options = 1;
+}

@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package brewview.v1;
+
+import "brewview/v1/client.proto";
+import "buf/validate/validate.proto";
+
+message Product {
+  int32 product_id = 1;
+  string product_name = 2;
+  string product_description = 3;
+  string product_image = 4;
+  string created_at = 5;
+  string updated_at = 6;
+  string deleted_at = 7;
+}
+
+message ProductsListRequest {}
+message ProductsListRow {
+  int32 product_id = 1;
+  string product_name = 2;
+  string product_description = 3;
+  string product_image = 4;
+  string created_at = 5;
+  string updated_at = 6;
+  string deleted_at = 7;
+}
+message ProductsListResponse {
+  ListDataOptions options = 1;
+  repeated ProductsListRow records = 2;
+  repeated ProductsListRow deleted_records = 3;
+}
+message ProductDeleteRestoreRequest {
+  repeated int32 product_ids = 1;
+}
+message ProductDeleteRestoreResponse {}
+
+message ProductCreateRequest {
+  string product_name = 1 [
+    (buf.validate.field).string.min_len = 0,
+    (buf.validate.field).string.max_len = 200
+  ];
+  string product_image = 2 [(buf.validate.field).string.max_len = 200];
+  string product_description = 3;
+}
+message ProductCreateResponse {}
+
+message ProductFindForUpdateRequest {
+  int32 product_id = 1;
+}
+
+message ProductUpdateRequest {
+  int32 product_id = 1 [(buf.validate.field).int32.gt = 0];
+  string product_name = 2 [
+    (buf.validate.field).string.min_len = 0,
+    (buf.validate.field).string.max_len = 200
+  ];
+  string product_image = 3 [(buf.validate.field).string.max_len = 200];
+  string product_description = 4;
+}
+message ProductUpdateResponse {}
+
+message ProductsInputListRequest {}
+message ProductsInputListResponse {
+  repeated SelectInputOption options = 1;
+}

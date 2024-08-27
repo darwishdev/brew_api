@@ -1,0 +1,24 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: brewview_api
+    volumes:
+      - ./config:/app/config
+    image: brewview_api
+    ports:
+      - 9091:9091
+    entrypoint:
+      [
+        "/app/wait-for.sh",
+        "redis_db:6379",
+        "--",
+        "/app/start.sh"
+      ]
+    command: [ "/app/main" ]
+
+networks:
+  default:
+    name: postgres_network
+    external: true

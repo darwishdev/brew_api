@@ -1,0 +1,108 @@
+syntax = "proto3";
+
+package brewview.v1;
+
+import "brewview/v1/accounts_role.proto";
+import "brewview/v1/accounts_user.proto";
+import "brewview/v1/blog_blog.proto";
+import "brewview/v1/blog_categories.proto";
+import "brewview/v1/places_city.proto";
+import "brewview/v1/places_country.proto";
+import "brewview/v1/places_district.proto";
+import "brewview/v1/places_global.proto";
+import "brewview/v1/places_neighbourhood.proto";
+import "brewview/v1/products_prices.proto";
+import "brewview/v1/products_products.proto";
+import "brewview/v1/products_units.proto";
+import "brewview/v1/public_setting.proto";
+
+service BrewViewService {
+  //public
+  //settings
+  rpc SettingsUpdate(SettingsUpdateRequest) returns (SettingsUpdateResponse) {}
+  rpc SettingsFindForUpdate(SettingsFindForUpdateRequest) returns (SettingsFindForUpdateResponse) {}
+
+  // roles
+  rpc PermissionsList(PermissionsListRequest) returns (PermissionsListResponse) {}
+  rpc RolesList(RolesListRequest) returns (RolesListResponse) {}
+
+  rpc RoleCreate(RoleCreateRequest) returns (RoleCreateResponse) {}
+  rpc RoleUpdate(RoleUpdateRequest) returns (RoleUpdateResponse) {}
+  rpc RoleFindForUpdate(RoleFindForUpdateRequest) returns (RoleUpdateRequest) {}
+  rpc RoleDeleteRestore(RoleDeleteRestoreRequest) returns (RoleDeleteRestoreResponse) {}
+  rpc RolesInputList(RolesInputListRequest) returns (RolesInputListResponse) {}
+
+  rpc BlogCreate(BlogCreateRequest) returns (BlogCreateResponse) {}
+  rpc BlogUpdate(BlogUpdateRequest) returns (BlogUpdateResponse) {}
+  rpc BlogDeleteRestore(BlogDeleteRestoreRequest) returns (BlogDeleteRestoreResponse) {}
+  rpc BlogsInputList(BlogsInputListRequest) returns (BlogsInputListResponse) {}
+  rpc BlogFindForUpdate(BlogFindForUpdateRequest) returns (BlogUpdateRequest) {}
+
+  rpc BlogsList(BlogsListRequest) returns (BlogsListResponse) {}
+
+  rpc CategoryCreate(CategoryCreateRequest) returns (CategoryCreateResponse) {}
+  rpc CategoryUpdate(CategoryUpdateRequest) returns (CategoryUpdateResponse) {}
+  rpc CategoryDeleteRestore(CategoryDeleteRestoreRequest) returns (CategoryDeleteRestoreResponse) {}
+  rpc CategoriesInputList(CategoriesInputListRequest) returns (CategoriesInputListResponse) {}
+  rpc CategoryFindForUpdate(CategoryFindForUpdateRequest) returns (CategoryUpdateRequest) {}
+
+  rpc CategoriesList(CategoriesListRequest) returns (CategoriesListResponse) {}
+  // users
+  rpc UserLogin(UserLoginRequest) returns (UserLoginResponse) {}
+  rpc UserAuthorize(UserAuthorizeRequest) returns (UserLoginResponse) {}
+  rpc UserResetPassword(UserResetPasswordRequest) returns (UserResetPasswordResponse) {}
+  rpc UsersList(UsersListRequest) returns (UsersListResponse) {}
+  rpc UserDeleteRestore(UserDeleteRestoreRequest) returns (UserDeleteRestoreResponse) {}
+  rpc UserCreate(UserCreateRequest) returns (UserCreateResponse) {}
+  rpc UserFindForUpdate(UserFindForUpdateRequest) returns (UserUpdateRequest) {}
+  rpc UserUpdate(UserUpdateRequest) returns (UserUpdateResponse) {}
+  // cities
+  rpc CountriesList(CountriesListRequest) returns (CountriesListResponse) {}
+  rpc CountriesInputList(CountriesInputListRequest) returns (CountriesInputListResponse) {}
+  rpc IsoCountriesInputList(IsoCountriesInputListRequest) returns (IsoCountriesInputListResponse) {}
+  rpc CountryCreate(CountryCreateRequest) returns (CountryCreateResponse) {}
+  rpc CountryDeleteRestore(CountryDeleteRestoreRequest) returns (CountryDeleteRestoreResponse) {}
+  // cities
+  rpc CitiesList(CitiesListRequest) returns (CitiesListResponse) {}
+  rpc CitiesInputList(CitiesInputListRequest) returns (CitiesInputListResponse) {}
+  rpc CityCreate(CityCreateRequest) returns (CityCreateResponse) {}
+  rpc CityFindForUpdate(CityFindForUpdateRequest) returns (CityUpdateRequest) {}
+  rpc CityUpdate(CityUpdateRequest) returns (CityUpdateResponse) {}
+  rpc CityDeleteRestore(CityDeleteRestoreRequest) returns (CityDeleteRestoreResponse) {}
+  // districts
+  rpc DistrictsList(DistrictsListRequest) returns (DistrictsListResponse) {}
+  rpc DistrictsInputList(DistrictsInputListRequest) returns (DistrictsInputListResponse) {}
+  rpc DistrictCreate(DistrictCreateRequest) returns (DistrictCreateResponse) {}
+  rpc DistrictFindForUpdate(DistrictFindForUpdateRequest) returns (DistrictUpdateRequest) {}
+  rpc DistrictUpdate(DistrictUpdateRequest) returns (DistrictUpdateResponse) {}
+  rpc DistrictDeleteRestore(DistrictDeleteRestoreRequest) returns (DistrictDeleteRestoreResponse) {}
+  // districts
+  rpc NeighbourhoodsList(NeighbourhoodsListRequest) returns (NeighbourhoodsListResponse) {}
+  rpc NeighbourhoodsInputList(NeighbourhoodsInputListRequest) returns (NeighbourhoodsInputListResponse) {}
+  rpc NeighbourhoodCreate(NeighbourhoodCreateRequest) returns (NeighbourhoodCreateResponse) {}
+  rpc NeighbourhoodFindForUpdate(NeighbourhoodFindForUpdateRequest) returns (NeighbourhoodUpdateRequest) {}
+  rpc NeighbourhoodUpdate(NeighbourhoodUpdateRequest) returns (NeighbourhoodUpdateResponse) {}
+  rpc NeighbourhoodDeleteRestore(NeighbourhoodDeleteRestoreRequest) returns (NeighbourhoodDeleteRestoreResponse) {}
+
+  // units
+  rpc UnitsList(UnitsListRequest) returns (UnitsListResponse) {}
+  rpc UnitsInputList(UnitsInputListRequest) returns (UnitsInputListResponse) {}
+  rpc UnitCreate(UnitCreateRequest) returns (UnitCreateResponse) {}
+  rpc UnitFindForUpdate(UnitFindForUpdateRequest) returns (UnitUpdateRequest) {}
+  rpc UnitUpdate(UnitUpdateRequest) returns (UnitUpdateResponse) {}
+  rpc UnitDeleteRestore(UnitDeleteRestoreRequest) returns (UnitDeleteRestoreResponse) {}
+  // products
+  rpc ProductsList(ProductsListRequest) returns (ProductsListResponse) {}
+  rpc ProductsInputList(ProductsInputListRequest) returns (ProductsInputListResponse) {}
+  rpc ProductFindForUpdate(ProductFindForUpdateRequest) returns (ProductUpdateRequest) {}
+  rpc ProductUpdate(ProductUpdateRequest) returns (ProductUpdateResponse) {}
+  rpc ProductCreate(ProductCreateRequest) returns (ProductCreateResponse) {}
+  rpc ProductDeleteRestore(ProductDeleteRestoreRequest) returns (ProductDeleteRestoreResponse) {}
+
+  rpc ProductPricesList(ProductPricesListRequest) returns (ProductPricesListResponse) {}
+  rpc ProductPriceFindForUpdate(ProductPriceFindForUpdateRequest) returns (ProductPriceUpdateRequest) {}
+  rpc ProductPriceUpdate(ProductPriceUpdateRequest) returns (ProductPriceUpdateResponse) {}
+  rpc ProductPriceCreate(ProductPriceCreateRequest) returns (ProductPriceCreateResponse) {}
+  rpc ProductPricesChart(ProductPricesChartRequest) returns (ProductPricesChartResponse) {}
+  rpc ClientInitialData(ClientInitialDataRequest) returns (ClientInitialDataResponse) {}
+}
