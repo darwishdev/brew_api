@@ -2,9 +2,11 @@ package gapi
 
 import (
 	"context"
+	"strings"
 
 	"github.com/bufbuild/connect-go"
 	rmsv1 "github.com/meloneg/brew_view_api/common/pb/brewview/v1"
+	"github.com/rs/zerolog/log"
 )
 
 func (api *Api) BlogCreate(ctx context.Context, req *connect.Request[rmsv1.BlogCreateRequest]) (*connect.Response[rmsv1.BlogCreateResponse], error) {
@@ -47,6 +49,22 @@ func (api *Api) BlogsList(ctx context.Context, req *connect.Request[rmsv1.BlogsL
 	if err != nil {
 		return nil, err
 	}
+
+	header := req.Header()
+	authHeader := header.Get("Authorization")
+	log.Debug().Interface("logging", authHeader).Msg("hola")
+	if authHeader == "" {
+		return connect.NewResponse(resp), nil
+	}
+	fields := strings.Fields(authHeader)
+	if len(fields) < 2 {
+		return connect.NewResponse(resp), nil
+	}
+	if fields[1] == "" {
+		return connect.NewResponse(resp), nil
+
+	}
+
 	opts, err := api.GetAccessableActionsForGroup(req.Header(), "blogs")
 	if err != nil {
 		return nil, err
